@@ -1,0 +1,35 @@
+version: '2'
+services:
+  octoprint:
+    image: nunofgs/octoprint
+    restart: always
+    labels:
+      - "traefik.frontend.rule=Host:prusa.ciaranmcnulty.com"
+      - "traefik.port=80"
+      - "traefik.enable=true"
+      - "traefik.protocol=http"
+    devices:
+      - /dev/video0
+      - /dev/ttyACM0
+    volumes:
+      - /mnt/octoprint:/data
+
+  reverse-proxy:
+    image: traefik
+    restart: always
+    command: --api --docker
+    ports:
+      - "80:80"     # The HTTP
+      - "443:443"   # SSL
+      - "8080:8080" # The Web UI (enabled by --api)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml
+      - ./acme.json:/acme.json
+
+  dynamic-dns-updater:
+    image: oznu/cloudflare-ddns:armhf
+    restart: always
+    env_file: 
+      - cloudflare.env
+
