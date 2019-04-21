@@ -1,7 +1,9 @@
-version: '2'
+version: '2.4'
 services:
   octoprint:
-    image: nunofgs/octoprint
+    build:
+      context: .
+      target: octoprint
     restart: always
     labels:
       - "traefik.frontend.rule=Host:prusa.ciaranmcnulty.com"
@@ -13,6 +15,11 @@ services:
       - /dev/ttyACM0
     volumes:
       - /mnt/octoprint:/data
+    env_file:
+      - power-device.env
+    environment:
+      - POWER_HOST=${HOST}
+      - POWER_PORT=3000
 
   reverse-proxy:
     image: traefik
@@ -32,4 +39,8 @@ services:
     restart: always
     env_file: 
       - cloudflare.env
+
+  power-controller:
+    image: arhea/tplink-hs100-hub:armhf
+    network_mode: host
 

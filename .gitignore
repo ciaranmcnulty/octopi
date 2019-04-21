@@ -1,2 +1,2 @@
-cloudflare.env
+*.env
 acme.json
