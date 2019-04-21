@@ -19,14 +19,26 @@ Wrote these notes after so will miss something inevitably
 
 ## DNS
 
-* Get API key from cloudflare and put in .env.dist
+* Get API key from cloudflare and put in cloudflare.env
+
+## Power control
+
+* Get TPlink device ID and put it in power_device.env
 
 ## Starting services
 
 * Touch acme.json and make sure it has 600 permissions
-* docker-compose up -d 
+* HOST=$(hostname) docker-compose up -d
 
 ## Octoprint config
 
+* Install PSU controller plugin
+* 
 In webcam settings:
-Stream URL: /webcam/?action=stream
+* Stream URL: /webcam/?action=stream
+
+
+## Todo
+
+Automate PSU plugin activation
+`/usr/local/bin/python -m pip install https://github.com/kantlivelong/OctoPrint-PSUControl/archive/master.zip --no-cache-dir`
