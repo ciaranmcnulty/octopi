@@ -10,7 +10,7 @@ Wrote these notes after so will miss something inevitably
 * Activate webcam via raspi-config (change passwds while there)
 * Edit /etc/modules and add bcm2835-v4l2 so /dev/video0 exists
 * Connect USB cable and figure out which /dev/tty is the printer
-* Install docker (can't remember how I did this)
+* Install docker (`sudo curl -sL get.docker.com | sed 's/9)/10)/' | sh`)
 * Install docker-compose from pip (will need a few dependencies adding using apt)
 
 ## Network
